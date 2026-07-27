@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medu — Write your name in hieroglyphs & learn to read them</title>
+  <meta name="description" content="Type your name in real Egyptian hieroglyphs, then learn to read them in six short lessons and train the signs.">
+  <meta name="theme-color" content="#FBF3E2">
+
+  <!-- PWA / installable app -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Medu">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- Fonts are bundled locally in medu.css (no network needed) -->
+  <link rel="stylesheet" href="medu.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="#type" data-go="type">
+      <span class="mark">𓅓</span>
+      <span>Medu <small>words of the gods</small></span>
+    </a>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button data-go="type"  role="tab"><span class="g">𓂋</span> Type</button>
+      <button data-go="learn" role="tab"><span class="g">𓏛</span> Learn</button>
+      <button data-go="train" role="tab"><span class="g">𓋴</span> Train</button>
+      <button data-go="plus"  role="tab"><span class="g">𓋹</span> Medu+</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ TYPE (flagship keypad) ============ -->
+  <section class="tabpane hero" data-tab="type">
+    <div class="kicker">Your name, 3,000 years ago</div>
+    <h1>Write your name in <em>hieroglyphs</em>.</h1>
+    <p class="lead">Type anything and watch it appear in real ancient Egyptian signs — the same script carved on temple walls along the Nile. Then save it, share it, or start learning to read.</p>
+
+    <div class="type-card">
+      <div class="type-input-row">
+        <input id="kp-input" type="text" placeholder="Type a name…" autocomplete="off" spellcheck="false" aria-label="Text to convert to hieroglyphs">
+      </div>
+
+      <div class="output-wrap">
+        <div id="kp-cartouche" class="cartouche">
+          <div id="kp-line" class="glyph-line"></div>
+        </div>
+        <div id="kp-translit" class="translit"></div>
+
+        <div class="output-tools">
+          <div class="mini-toggle" id="kp-layout" role="group" aria-label="Layout">
+            <button data-layout="vertical" aria-pressed="true">Stacked</button>
+            <button data-layout="horizontal" aria-pressed="false">In a row</button>
+          </div>
+          <button id="kp-copy"  class="btn btn-ghost" disabled>⧉ Copy</button>
+          <button id="kp-png"   class="btn btn-teal" disabled>↓ Save image</button>
+          <button id="kp-share" class="btn btn-primary" disabled>↗ Share</button>
+        </div>
+      </div>
+
+      <div id="kp-keys" class="keys" aria-label="On-screen hieroglyph keyboard"></div>
+
+      <div class="honest-note">
+        <strong>A phonetic approximation.</strong> Egyptian wrote consonants, not vowels, and some
+        of our letters share one sign (C→K, O/U→W, V→F). So this spells your name by sound — the way
+        souvenir cartouches do — not as an ancient scribe would have recorded it. Want the real rules?
+        <a href="#learn" data-go="learn">Start the lessons →</a>
+      </div>
+    </div>
+
+    <div class="feature-row">
+      <div class="feature" data-go="learn">
+        <div class="fg">𓏛</div><h3>Learn</h3>
+        <p>Six short lessons: how the writing works, the 24 sounds, cartouches, and reading a real formula.</p>
+      </div>
+      <div class="feature" data-go="train">
+        <div class="fg">𓋴</div><h3>Train</h3>
+        <p>Flip-card drills on the phonetic signs. Build a streak and make them stick.</p>
+      </div>
+      <div class="feature" data-go="plus">
+        <div class="fg">𓋹</div><h3>Medu+</h3>
+        <p>Go further: the full sign dictionary, real texts, and more. <span class="plus-badge">Soon</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LEARN ============ -->
+  <section class="tabpane" data-tab="learn">
+    <div id="learn-root"></div>
+  </section>
+
+  <!-- ============ TRAIN ============ -->
+  <section class="tabpane" data-tab="train">
+    <div class="section-head"><h2>Train the signs</h2></div>
+    <p class="lead">The 24 single-sound signs plus common two- and three-sound signs. Look at the sign, guess its sound, then flip to check.</p>
+
+    <div class="train-top">
+      <div class="level-pick" id="train-level" role="group" aria-label="Difficulty">
+        <button data-level="uni" aria-pressed="true">1-sound</button>
+        <button data-level="unibi" aria-pressed="false">Up to 2</button>
+        <button data-level="tudo" aria-pressed="false">All</button>
+      </div>
+      <div class="train-scores">
+        <div><b id="sc-streak">0</b><span>Streak</span></div>
+        <div><b id="sc-best">0</b><span>Best</span></div>
+        <div><b id="sc-seen">0</b><span>Seen</span></div>
+      </div>
+    </div>
+
+    <div class="flashcard-stage">
+      <div id="flashcard" class="flashcard" role="button" tabindex="0" aria-label="Flashcard, click to flip">
+        <div class="face front">
+          <div id="fc-front-g" class="fg"></div>
+          <small id="fc-hint">tap to reveal</small>
+        </div>
+        <div class="face back">
+          <div>
+            <div id="fc-phon" class="bphon"></div>
+            <div id="fc-name" class="bname"></div>
+            <div id="fc-id" class="bid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="train-actions">
+      <button id="fc-flipbtn" class="btn btn-ghost">Flip ↺</button>
+      <div id="fc-grade" style="display:none; gap:10px;">
+        <button id="fc-miss" class="btn btn-ghost">✗ Missed</button>
+        <button id="fc-got" class="btn btn-teal">✓ Got it</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MEDU+ (premium teaser) ============ -->
+  <section class="tabpane" data-tab="plus">
+    <div class="plus-hero">
+      <div class="pg">𓋹 𓊹 𓏏</div>
+      <span class="plus-badge">Coming soon</span>
+      <h2>Medu+</h2>
+      <p>You've written your name and learned the basics. Medu+ is where you go deeper — the full toolkit for reading real ancient Egyptian.</p>
+      <ul class="plus-list">
+        <li><span class="pl-g">𓁹</span><span><strong>The full sign dictionary</strong> — all ~900 Gardiner signs, searchable, with a free word builder.</span></li>
+        <li><span class="pl-g">𓍹</span><span><strong>Royal cartouches</strong> — spell true Egyptian words and royal names, not just phonetic approximations.</span></li>
+        <li><span class="pl-g">𓊪</span><span><strong>Read real stories</strong> — annotated ancient tales, chapter by chapter.</span></li>
+        <li><span class="pl-g">𓏇</span><span><strong>Progress that travels</strong> — certificates and a collection to show what you've learned.</span></li>
+      </ul>
+      <button class="btn plus-cta" data-go="type">← Keep exploring for now</button>
+    </div>
+    <p class="lead" style="margin-top:22px">Every lesson and sign in Medu is grounded in real Egyptology — the standard Gardiner sign list and attested Middle Egyptian vocabulary — so what you learn here is the real thing.</p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="fi">
+    <strong>Medu</strong> — learn to read the words of the gods.
+    Content and design © Flavia Lima Corpas.
+    Hieroglyph font: <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Egyptian+Hieroglyphs" target="_blank" rel="noopener">Noto Sans Egyptian Hieroglyphs</a>.
+  </div>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- App data: sign list and lessons -->
+<script src="data/gardiner_data_en.js"></script>
+<script src="data/licoes.js"></script>
+
+<!-- App -->
+<script src="js/alphabet.js"></script>
+<script src="js/keypad.js"></script>
+<script src="js/learn.js"></script>
+<script src="js/train.js"></script>
+<script src="js/app.js"></script>
+
+<!-- Register the service worker (offline). Skipped under file:// / Capacitor. -->
+<script>
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+</script>
+</body>
+</html>
