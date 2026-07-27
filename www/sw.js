@@ -1,12 +1,13 @@
 /* Medu service worker — offline app shell.
    Cache-first for the (fully self-contained) assets so the installed PWA
    works with no network. Bump CACHE when any listed file changes. */
-var CACHE = 'medu-v1';
+var CACHE = 'medu-v2';
 var ASSETS = [
   './',
   'index.html',
   'medu.css',
   'manifest.webmanifest',
+  'js/i18n.js',
   'js/alphabet.js',
   'js/app.js',
   'js/keypad.js',

@@ -112,6 +112,21 @@ nav.tabs button[aria-selected="true"] {
 }
 nav.tabs button .g { font-family: var(--glyph); font-size: 1rem; }
 
+/* language switch (PT / EN) */
+.lang-switch {
+  display: inline-flex; background: var(--papyrus-2); border-radius: 999px;
+  padding: 3px; gap: 2px;
+}
+.lang-switch button {
+  border: 0; background: transparent; cursor: pointer;
+  font-family: var(--sans); font-weight: 700; font-size: .72rem; letter-spacing: .04em;
+  color: var(--ink-soft); padding: 5px 10px; border-radius: 999px; transition: .18s;
+}
+.lang-switch button:hover { color: var(--ink); }
+.lang-switch button[aria-pressed="true"] {
+  background: #fff; color: var(--terra); box-shadow: var(--shadow-sm);
+}
+
 /* ------------------------------------------------------------ */
 /*  Layout                                                       */
 /* ------------------------------------------------------------ */

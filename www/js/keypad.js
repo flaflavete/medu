@@ -33,13 +33,15 @@
 
   function glyphString() { return state.signs.map(function (s) { return s.g; }).join(''); }
 
+  function ui(key) { return window.MeduLang ? window.MeduLang.t(key) : key; }
+
   function copy() {
     var txt = glyphString();
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(txt).then(function () { window.Medu.toast('Hieroglyphs copied ✓'); });
+      navigator.clipboard.writeText(txt).then(function () { window.Medu.toast(ui('kp.copied')); });
     } else {
       var ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta);
-      ta.select(); document.execCommand('copy'); ta.remove(); window.Medu.toast('Hieroglyphs copied ✓');
+      ta.select(); document.execCommand('copy'); ta.remove(); window.Medu.toast(ui('kp.copied'));
     }
   }
 
@@ -82,12 +84,12 @@
       glyphs.forEach(function (g, i) { ctx.fillText(g, positions[i][0], positions[i][1]); });
       // signature
       ctx.fillStyle = '#6A5540'; ctx.font = '16px Nunito,sans-serif';
-      ctx.textAlign = 'right'; ctx.fillText('made with Medu', W - 16, H - 14);
+      ctx.textAlign = 'right'; ctx.fillText(ui('kp.madeWith'), W - 16, H - 14);
 
       var url = cv.toDataURL('image/png');
       var a = document.createElement('a'); a.href = url; a.download = 'medu-' + name + '.png';
       document.body.appendChild(a); a.click(); a.remove();
-      window.Medu.toast('Saved your cartouche ✓');
+      window.Medu.toast(ui('kp.saved'));
     }
 
     if (document.fonts && document.fonts.load) {
@@ -106,10 +108,10 @@
   }
 
   function share() {
-    var txt = 'My name in hieroglyphs: ' + glyphString() + ' — made with Medu';
+    var txt = ui('kp.shareText') + glyphString() + ' — ' + ui('kp.madeWith');
     if (navigator.share) {
       navigator.share({ title: 'Medu', text: txt }).catch(function () {});
-    } else { copy(); window.Medu.toast('Copied — paste it anywhere ✓'); }
+    } else { copy(); window.Medu.toast(ui('kp.pasted')); }
   }
 
   function buildKeys() {

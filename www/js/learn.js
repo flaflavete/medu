@@ -1,12 +1,15 @@
-/* Medu — Learn tab. Renders the lesson data (window.CURSO_LICOES) in
-   English, with a light progress track. */
+/* Medu — Learn tab. Renders the lesson data (window.CURSO_LICOES) in the
+   currently selected language (PT / EN, see js/i18n.js), with a light
+   progress track. */
 (function () {
   'use strict';
 
-  var L = 'en';
   var gard = {}; // id -> row  (from GARDINER_DATA_EN)
+  var current = null; // the lesson currently open, or null when on the list
 
-  function t(o) { return o ? (o[L] != null ? o[L] : o) : ''; }
+  function lang() { return window.MeduLang ? window.MeduLang.get() : 'en'; }
+  function ui(key) { return window.MeduLang ? window.MeduLang.t(key) : key; }
+  function t(o) { if (!o) return ''; var L = lang(); return o[L] != null ? o[L] : (o.en != null ? o.en : o); }
   function esc(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
 
   function buildGard() {
@@ -79,9 +82,10 @@
       var opts = q.options.map(function (o, k) {
         return '<button data-k="' + k + '" data-ok="' + (o.correct ? 1 : 0) + '">' + t(o.label) + '</button>';
       }).join('');
+      var qLabel = (lang() === 'pt' ? 'Pergunta ' : 'Question ') + (i + 1) + ' / ' + qs.length;
       mount.innerHTML =
         '<div class="quiz"><div class="qg">' + (q.glyph || '𓋴𓈎𓂋') + '</div>' +
-        '<div class="qq">Question ' + (i + 1) + ' / ' + qs.length + '<br>' + t(q.question) + '</div>' +
+        '<div class="qq">' + qLabel + '<br>' + t(q.question) + '</div>' +
         '<div class="qopts">' + opts + '</div>' +
         '<div class="qfb"></div>' +
         '<div class="qnav"></div></div>';
@@ -99,9 +103,9 @@
         fb.className = 'qfb ' + (ok ? 'ok' : 'err');
         fb.innerHTML = ok ? t(q.feedbackOk) : t(q.feedbackErr);
         var last = i === qs.length - 1;
-        nav.innerHTML = '<button class="btn btn-primary" data-next>' + (last ? 'Finish lesson ✓' : 'Next question →') + '</button>';
+        nav.innerHTML = '<button class="btn btn-primary" data-next>' + (last ? ui('learn.finish') : ui('learn.next')) + '</button>';
         nav.querySelector('[data-next]').addEventListener('click', function () {
-          if (last) { markDone(les.id); window.Medu.toast('Lesson complete ✓'); openList(); }
+          if (last) { markDone(les.id); window.Medu.toast(ui('learn.complete')); openList(); }
           else { i++; draw(); }
         });
       });
@@ -110,17 +114,18 @@
   }
 
   function finishBtn(les, mount) {
-    mount.innerHTML = '<div class="quiz"><div class="qnav"><button class="btn btn-primary" data-fin>Mark as complete ✓</button></div></div>';
+    mount.innerHTML = '<div class="quiz"><div class="qnav"><button class="btn btn-primary" data-fin>' + ui('learn.markDone') + '</button></div></div>';
     mount.querySelector('[data-fin]').addEventListener('click', function () {
-      markDone(les.id); window.Medu.toast('Lesson complete ✓'); openList();
+      markDone(les.id); window.Medu.toast(ui('learn.complete')); openList();
     });
   }
 
   /* ---- lesson reader ---- */
   function openLesson(les) {
+    current = les;
     var root = document.getElementById('learn-root');
     root.innerHTML =
-      '<div class="reader-head"><button class="back" data-list>← All lessons</button></div>' +
+      '<div class="reader-head"><button class="back" data-list>' + ui('learn.allLessons') + '</button></div>' +
       '<div class="reader-hero"><div class="rg">' + les.glyph + '</div>' +
       '<div class="kicker">' + t(les.kicker) + '</div>' +
       '<h2>' + t(les.title) + '</h2>' +
@@ -134,6 +139,7 @@
 
   /* ---- lesson list ---- */
   function openList() {
+    current = null;
     var root = document.getElementById('learn-root');
     var lessons = window.CURSO_LICOES || [];
     var d = done();
@@ -148,15 +154,18 @@
         '<div class="lnum">' + (isDone ? '✓' : les.glyph) + '</div>' +
         '<div class="lbody"><div class="lkicker">' + t(les.kicker) + '</div>' +
         '<h3>' + t(les.title) + '</h3><p>' + t(les.desc) + '</p>' +
-        '<div class="lmeta">' + t(les.type) + ' · ' + t(les.dur) + (locked ? ' · Coming soon' : '') + '</div></div>' +
+        '<div class="lmeta">' + t(les.type) + ' · ' + t(les.dur) + (locked ? ' · ' + ui('learn.comingSoon') : '') + '</div></div>' +
         (isDone ? '<div class="lcheck">𓋹</div>' : '') + '</div>';
     }).join('');
 
+    var progressLabel = (lang() === 'pt')
+      ? (completed + ' de ' + lessons.length + ' lições concluídas')
+      : (completed + ' of ' + lessons.length + ' lessons complete');
     root.innerHTML =
-      '<div class="section-head"><h2>Learn to read hieroglyphs</h2></div>' +
-      '<p class="lead">Six short lessons, from how the writing works to reading a real offering formula. No prior knowledge needed.</p>' +
+      '<div class="section-head"><h2>' + ui('learn.head') + '</h2></div>' +
+      '<p class="lead">' + ui('learn.lead') + '</p>' +
       '<div class="progress-bar"><span style="width:' + pct + '%"></span></div>' +
-      '<div class="progress-label">' + completed + ' of ' + lessons.length + ' lessons complete</div>' +
+      '<div class="progress-label">' + progressLabel + '</div>' +
       '<div class="trail">' + trail + '</div>';
 
     root.querySelectorAll('[data-open]').forEach(function (el) {
@@ -171,5 +180,12 @@
     if (!document.getElementById('learn-root')) return;
     buildGard();
     openList();
+    // Re-render the current view when the language changes.
+    if (window.MeduLang) {
+      window.MeduLang.onChange(function () {
+        if (!document.getElementById('learn-root')) return;
+        if (current) openLesson(current); else openList();
+      });
+    }
   };
 })();
