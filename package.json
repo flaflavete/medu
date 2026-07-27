@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Medu — write your name in Egyptian hieroglyphs and learn to read them.",
-  "author": "Flavia Lima Corpas",
+  "author": "@corpasflavia",
   "license": "UNLICENSED",
   "scripts": {
     "cap:add:ios": "cap add ios",

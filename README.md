@@ -60,7 +60,7 @@ Android Studio.
 
 ## License
 
-Proprietary — © 2026 Flavia Lima Corpas. See [LICENSE](LICENSE) and
+Proprietary — © 2026 @corpasflavia. See [LICENSE](LICENSE) and
 [NOTICE](NOTICE). (This is intentionally **not** an open/non-commercial
 license, since Medu is meant to be sold.)
 
