@@ -121,8 +121,8 @@
     },
 
     'foot.text': {
-      en: '<strong>Medu</strong> — learn to read the words of the gods. Content and design © Flavia Lima Corpas. Hieroglyph font: <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Egyptian+Hieroglyphs" target="_blank" rel="noopener">Noto Sans Egyptian Hieroglyphs</a>.',
-      pt: '<strong>Medu</strong> — aprenda a ler as palavras dos deuses. Conteúdo e design © Flavia Lima Corpas. Fonte de hieróglifos: <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Egyptian+Hieroglyphs" target="_blank" rel="noopener">Noto Sans Egyptian Hieroglyphs</a>.'
+      en: '<strong>Medu</strong> — learn to read the words of the gods. Content and design © @corpasflavia. Hieroglyph font: <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Egyptian+Hieroglyphs" target="_blank" rel="noopener">Noto Sans Egyptian Hieroglyphs</a>.',
+      pt: '<strong>Medu</strong> — aprenda a ler as palavras dos deuses. Conteúdo e design © @corpasflavia. Fonte de hieróglifos: <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Egyptian+Hieroglyphs" target="_blank" rel="noopener">Noto Sans Egyptian Hieroglyphs</a>.'
     },
     'lang.aria': { en: 'Language', pt: 'Idioma' },
 

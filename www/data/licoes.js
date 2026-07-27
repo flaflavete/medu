@@ -56,7 +56,7 @@ window.CURSO_LICOES = [
           { kind: 'foto', src: '../assets/photos/dendera.jpg',
             alt: { pt: 'Bloco de calcário com o nome da deusa Hathor: um falcão dentro de um recinto retangular.', en: 'Limestone block with the name of the goddess Hathor: a falcon inside a rectangular enclosure.' },
             caption: { pt: 'O nome da deusa <em>Hathor</em> (<em>Ḥwt-Ḥr</em>, "Casa de Hórus"), escrito com o falcão de Hórus dentro do recinto <em>ḥwt</em>, "casa". O nome é, ao pé da letra, um desenho com significado.', en: 'The name of the goddess <em>Hathor</em> (<em>Ḥwt-Ḥr</em>, "House of Horus"), written with the Horus falcon inside the <em>ḥwt</em> enclosure, "house". The name is, quite literally, a picture with meaning.' },
-            credit: { pt: 'Foto: Flavia Lima Corpas · Templo de Dendera, Qena', en: 'Photo: Flavia Lima Corpas · Temple of Dendera, Qena' } },
+            credit: { pt: 'Foto: @corpasflavia · Templo de Dendera, Qena', en: 'Photo: @corpasflavia · Temple of Dendera, Qena' } },
         ],
       },
       {
@@ -424,7 +424,7 @@ window.CURSO_LICOES = [
           { kind: 'foto', src: '../assets/photos/karnak.JPG',
             alt: { pt: 'Cartucho talhado numa coluna de pedra, com o disco solar e outros sinais dentro de um oval.', en: 'Cartouche carved on a stone column, with the sun disk and other signs inside an oval.' },
             caption: { pt: 'O nome de trono de <em>Ramsés II</em>, <em>Wsr-Mꜣꜥt-Rꜥ</em> ("Poderosa é a Maat de Rá"). Repare no disco solar 𓇳 escrito primeiro, por respeito: é a transposição honorífica.', en: 'The throne name of <em>Ramesses II</em>, <em>Wsr-Mꜣꜥt-Rꜥ</em> ("The Maat of Ra is powerful"). Notice the sun disk 𓇳 written first, out of respect: honorific transposition.' },
-            credit: { pt: 'Foto: Flavia Lima Corpas · Templo de Karnak', en: 'Photo: Flavia Lima Corpas · Temple of Karnak' } },
+            credit: { pt: 'Foto: @corpasflavia · Templo de Karnak', en: 'Photo: @corpasflavia · Temple of Karnak' } },
         ],
       },
       {
