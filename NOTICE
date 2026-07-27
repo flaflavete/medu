@@ -1,0 +1,21 @@
+Medu — third-party components
+
+Fonts (bundled in www/fonts/), each under the SIL Open Font License 1.1,
+which permits bundling in commercial applications:
+
+- Noto Sans Egyptian Hieroglyphs — © The Noto Project Authors
+  https://fonts.google.com/noto/specimen/Noto+Sans+Egyptian+Hieroglyphs
+- Fredoka — © The Fredoka Project Authors
+- Nunito — © The Nunito Project Authors
+
+The SIL Open Font License is available at:
+https://openfontlicense.org
+
+Scholarly reference basis for the sign list and lessons (facts, not
+copyrighted content): A. H. Gardiner, Egyptian Grammar (sign list); and
+standard Middle Egyptian references. The ancient Egyptian source texts are
+in the public domain.
+
+Build tooling: Capacitor (© Ionic, MIT license) is used to package the web
+app for iOS and Android; it is installed as a dev dependency and not
+redistributed here.

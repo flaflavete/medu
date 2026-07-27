@@ -1,0 +1,24 @@
+{
+  "name": "medu",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Medu — write your name in Egyptian hieroglyphs and learn to read them.",
+  "author": "Flavia Lima Corpas",
+  "license": "UNLICENSED",
+  "scripts": {
+    "cap:add:ios": "cap add ios",
+    "cap:add:android": "cap add android",
+    "cap:copy": "cap copy",
+    "cap:sync": "cap sync",
+    "cap:ios": "cap open ios",
+    "cap:android": "cap open android",
+    "assets": "capacitor-assets generate --iconBackgroundColor '#C65D3B' --splashBackgroundColor '#FBF3E2'"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/ios": "^6.1.2",
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/assets": "^3.0.5"
+  }
+}

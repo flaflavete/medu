@@ -1,0 +1,9 @@
+{
+  "appId": "app.medu.hieroglyphs",
+  "appName": "Medu",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "backgroundColor": "#FBF3E2"
+}
